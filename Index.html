@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aegis Arc Academy (AAA) // OSSD TCG Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-base: #0b0f19;
+      --panel-bg: rgba(15, 23, 42, 0.75);
+      --brass: #c5a059;
+      --brass-glow: rgba(197, 160, 89, 0.35);
+      --cyan-holo: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.3);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-base);
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 80% 80%, rgba(197, 160, 89, 0.05) 0%, transparent 50%);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 860px;
+      width: 100%;
+      background: var(--panel-bg);
+      border: 1px solid rgba(197, 160, 89, 0.25);
+      border-radius: 12px;
+      padding: 3rem 2.5rem;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--brass-glow);
+      text-align: center;
+      position: relative;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid var(--cyan-holo);
+      color: var(--cyan-holo);
+      padding: 0.35rem 1rem;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 2.75rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: #fff;
+      text-shadow: 0 0 20px var(--brass-glow);
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      color: var(--brass);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.75rem;
+    }
+    p.desc {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto 2.5rem;
+    }
+    .elements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+      padding: 1rem;
+      background: rgba(11, 15, 25, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+    }
+    .element-item {
+      padding: 0.75rem 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .element-item:hover {
+      background: rgba(197, 160, 89, 0.15);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .footer-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 1.5rem;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #10b981;
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">
+      <span class="pulse-dot"></span>Q1 Sprint 1 // Architecture Staging
+    </div>
+    <h1>Aegis Arc Academy</h1>
+    <div class="subtitle">OSSD TCG Quest • 圣盾天弧书院</div>
+    <p class="desc">
+      Where finite Ministry-inspected OSSD credits meet an infinite game of scholarly exploration.
+      Built upon the 9 Elemental Arcane Schools and 110-hour authentic inquiry.
+    </p>
+
+    <div class="elements-grid">
+      <div class="element-item">💧 Aqua</div>
+      <div class="element-item">🔥 Pyra</div>
+      <div class="element-item">⚙️ Machina</div>
+      <div class="element-item">🌿 Terra</div>
+      <div class="element-item">⚡ Volt</div>
+      <div class="element-item">💰 Aurus</div>
+      <div class="element-item">🎨 Lumen</div>
+      <div class="element-item">🛡️ Corpus</div>
+      <div class="element-item">🗣️ Verba</div>
+    </div>
+
+    <div class="footer-status">
+      <span>Status: Deploying Core Archetypes</span>
+      <span>Ontario Ministry Curriculum Aligned</span>
+    </div>
+  </div>
+</body>
+</html>
