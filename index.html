@@ -3,27 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aegis Arc Academy (AAA) // OSSD TCG Quest</title>
+  <title>Aegis Arc Academy (AAA) // Golden Master Card Prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg-base: #0b0f19;
-      --panel-bg: rgba(15, 23, 42, 0.75);
+      --panel-bg: rgba(15, 23, 42, 0.7);
       --brass: #c5a059;
+      --brass-light: #e6c887;
       --brass-glow: rgba(197, 160, 89, 0.35);
-      --cyan-holo: #38bdf8;
-      --cyan-glow: rgba(56, 189, 248, 0.3);
+      
+      /* Active Element Theme Defaults (💧 Aqua) */
+      --elem-primary: #0284c7;
+      --elem-glow: rgba(56, 189, 248, 0.4);
+      --elem-tag-bg: rgba(2, 132, 199, 0.15);
+      --elem-border: #38bdf8;
+      
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --card-w: 340px;
+      --card-h: 476px; /* Strict 3:4 Proportions */
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: var(--bg-base);
       background-image: 
-        radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(197, 160, 89, 0.05) 0%, transparent 50%);
+        radial-gradient(circle at 50% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
+        radial-gradient(circle at 85% 85%, rgba(197, 160, 89, 0.08) 0%, transparent 50%);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
@@ -31,132 +40,484 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 2rem;
-      overflow-x: hidden;
+      padding: 2.5rem 1rem;
+      perspective: 1200px;
     }
-    .container {
-      max-width: 860px;
-      width: 100%;
-      background: var(--panel-bg);
-      border: 1px solid rgba(197, 160, 89, 0.25);
-      border-radius: 12px;
-      padding: 3rem 2.5rem;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--brass-glow);
+
+    /* Top Navigation & Discipline Switcher */
+    .controls-panel {
+      margin-bottom: 2rem;
       text-align: center;
-      position: relative;
     }
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: rgba(56, 189, 248, 0.1);
-      border: 1px solid var(--cyan-holo);
-      color: var(--cyan-holo);
-      padding: 0.35rem 1rem;
+      background: rgba(197, 160, 89, 0.12);
+      border: 1px solid var(--brass);
+      color: var(--brass-light);
+      padding: 0.4rem 1.25rem;
       border-radius: 9999px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 2.75rem;
-      font-weight: 900;
-      letter-spacing: 0.05em;
-      color: #fff;
-      text-shadow: 0 0 20px var(--brass-glow);
-      margin-bottom: 0.5rem;
+    .discipline-switch {
+      display: flex;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 0.35rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .subtitle {
-      font-family: 'Cinzel', serif;
-      font-size: 1.1rem;
-      color: var(--brass);
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1.75rem;
-    }
-    p.desc {
+    .switch-btn {
+      background: transparent;
+      border: none;
       color: var(--text-muted);
-      font-size: 1rem;
-      line-height: 1.7;
-      max-width: 640px;
-      margin: 0 auto 2.5rem;
-    }
-    .elements-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-      gap: 0.75rem;
-      margin-bottom: 2.5rem;
-      padding: 1rem;
-      background: rgba(11, 15, 25, 0.6);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-    }
-    .element-item {
-      padding: 0.75rem 0.5rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .element-item:hover {
-      background: rgba(197, 160, 89, 0.15);
-      color: #fff;
-      transform: translateY(-2px);
-    }
-    .footer-status {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      color: var(--text-muted);
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+    .switch-btn.active {
+      background: var(--elem-tag-bg);
+      color: var(--elem-border);
+      border: 1px solid var(--elem-border);
+      box-shadow: 0 0 12px var(--elem-glow);
+    }
+
+    /* 5-LAYER ATOMIC CARD CONTAINER */
+    .card-wrap {
+      width: var(--card-w);
+      height: var(--card-h);
+      position: relative;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+    }
+
+    /* Layer 1: The Obsidian Base & Brass Lock Frame */
+    .card-base {
+      position: absolute;
+      inset: 0;
+      background: #0f172a;
+      border-radius: 18px;
+      border: 1.5px solid var(--brass);
+      box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.8),
+        0 0 35px var(--elem-glow),
+        inset 0 0 20px rgba(0, 0, 0, 0.7);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Mechanical Corner Accents */
+    .corner-bracket {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-color: var(--brass-light);
+      border-style: solid;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .tl { top: 6px; left: 6px; border-width: 2px 0 0 2px; }
+    .tr { top: 6px; right: 6px; border-width: 2px 2px 0 0; }
+    .bl { bottom: 6px; left: 6px; border-width: 0 0 2px 2px; }
+    .br { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; }
+
+    /* Layer 2: The Holo-Parchment Core (Glassmorphism) */
+    .holo-core {
+      position: relative;
+      flex: 1;
+      border-radius: 12px;
+      background: linear-gradient(160deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      flex-direction: column;
+      padding: 14px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    /* Layer 4 (Part A): Prismatic Rainbow Holographic Foil Glare Overlay */
+    .holo-glare {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        115deg,
+        transparent 0%,
+        rgba(56, 189, 248, 0.15) 30%,
+        rgba(236, 72, 153, 0.18) 48%,
+        rgba(251, 191, 36, 0.18) 52%,
+        rgba(56, 189, 248, 0.15) 70%,
+        transparent 100%
+      );
+      mix-blend-mode: color-dodge;
+      opacity: 0.55;
+      pointer-events: none;
+      transform: translateZ(30px);
+      transition: opacity 0.3s ease;
+    }
+
+    /* Layer 5: Engineering Metadata Header */
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 1.5rem;
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 6px;
+      transform: translateZ(20px);
     }
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background: #10b981;
+    .course-tag {
+      color: var(--elem-border);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .type-badge {
+      color: var(--brass-light);
+      font-size: 0.7rem;
+      background: rgba(197, 160, 89, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 0.5px solid var(--brass);
+    }
+
+    /* Layer 3: Intaglio Etching Artwork Window */
+    .art-window {
+      height: 180px;
+      border-radius: 8px;
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      position: relative;
+      background: radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transform: translateZ(25px);
+      margin-bottom: 12px;
+    }
+
+    /* Rotating Cybernetic Celestial Runes */
+    .celestial-orbit {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border: 1px dashed var(--elem-border);
       border-radius: 50%;
-      box-shadow: 0 0 10px #10b981;
-      display: inline-block;
-      margin-right: 0.5rem;
+      opacity: 0.35;
+      animation: rotateOrbit 25s linear infinite;
+    }
+    @keyframes rotateOrbit {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Central Hand-Drawn Emblem SVG */
+    .central-emblem {
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 0 12px var(--elem-border));
+      transition: transform 0.3s ease;
+    }
+    .card-wrap:hover .central-emblem {
+      transform: scale(1.08) rotate(-3deg);
+    }
+
+    /* Card Titles & Lore */
+    .card-title-block {
+      margin-bottom: 8px;
+      transform: translateZ(20px);
+    }
+    .card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 2px;
+      letter-spacing: 0.03em;
+    }
+    .card-flavor {
+      font-size: 0.72rem;
+      color: var(--brass-light);
+      font-style: italic;
+      line-height: 1.35;
+    }
+
+    /* Skill & Mechanism Description */
+    .skill-box {
+      flex: 1;
+      background: rgba(11, 15, 25, 0.5);
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      transform: translateZ(15px);
+      margin-bottom: 10px;
+    }
+    .skill-name {
+      color: var(--elem-border);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    /* Dialectic Defense & Refutation Stats */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 6px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      transform: translateZ(20px);
+    }
+    .stat-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-main);
+    }
+    .stat-val {
+      color: var(--elem-border);
+      font-weight: 700;
+    }
+
+    /* Hint text */
+    .hint-bar {
+      margin-top: 2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <!-- Controls Panel -->
+  <div class="controls-panel">
     <div class="badge">
-      <span class="pulse-dot"></span>Q1 Sprint 1 // Architecture Staging
+      Aegis Arc Academy (AAA) // Golden Master Spec v1.0
     </div>
-    <h1>Aegis Arc Academy</h1>
-    <div class="subtitle">OSSD TCG Quest • 圣盾天弧书院</div>
-    <p class="desc">
-      Where finite Ministry-inspected OSSD credits meet an infinite game of scholarly exploration.
-      Built upon the 9 Elemental Arcane Schools and 110-hour authentic inquiry.
-    </p>
-
-    <div class="elements-grid">
-      <div class="element-item">💧 Aqua</div>
-      <div class="element-item">🔥 Pyra</div>
-      <div class="element-item">⚙️ Machina</div>
-      <div class="element-item">🌿 Terra</div>
-      <div class="element-item">⚡ Volt</div>
-      <div class="element-item">💰 Aurus</div>
-      <div class="element-item">🎨 Lumen</div>
-      <div class="element-item">🛡️ Corpus</div>
-      <div class="element-item">🗣️ Verba</div>
-    </div>
-
-    <div class="footer-status">
-      <span>Status: Deploying Core Archetypes</span>
-      <span>Ontario Ministry Curriculum Aligned</span>
+    <div class="discipline-switch">
+      <button class="switch-btn active" onclick="switchTheme('aqua')">💧 Aqua (ENG3U)</button>
+      <button class="switch-btn" onclick="switchTheme('pyra')">🔥 Pyra (MHF4U)</button>
+      <button class="switch-btn" onclick="switchTheme('machina')">⚙️ Machina (ICS3U)</button>
     </div>
   </div>
+
+  <!-- 5-LAYER ATOMIC CARD COMPONENT -->
+  <div class="card-wrap" id="masterCard" onclick="playHapticSound()">
+    <div class="card-base">
+      
+      <!-- Layer 1 Corners -->
+      <div class="corner-bracket tl"></div>
+      <div class="corner-bracket tr"></div>
+      <div class="corner-bracket bl"></div>
+      <div class="corner-bracket br"></div>
+
+      <!-- Layer 2: Holo-Parchment Core -->
+      <div class="holo-core">
+        
+        <!-- Layer 4: Rainbow Glare Overlay -->
+        <div class="holo-glare" id="holoGlare"></div>
+
+        <!-- Layer 5: Metadata Header -->
+        <div class="card-header">
+          <span class="course-tag" id="cardCourseTag">ENG3U // AQUA</span>
+          <span class="type-badge" id="cardRarity">ANCESTRAL FOLIO</span>
+        </div>
+
+        <!-- Layer 3: Artwork Window -->
+        <div class="art-window" id="artWindow">
+          <div class="celestial-orbit"></div>
+          <!-- Hand-Drawn Classical Quill SVG -->
+          <svg class="central-emblem" id="emblemSvg" width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--brass-light)">
+            <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+            <line x1="16" y1="8" x2="2" y2="22"></line>
+            <line x1="17.5" y1="15" x2="9" y2="15"></line>
+          </svg>
+        </div>
+
+        <!-- Card Title & Lore -->
+        <div class="card-title-block">
+          <div class="card-name" id="cardName">命运重织之羽</div>
+          <div class="card-flavor" id="cardFlavor">"What's done cannot be undone... unless the quill rewrites the fate."</div>
+        </div>
+
+        <!-- Skill Mechanics (Ludonarrative) -->
+        <div class="skill-box">
+          <div class="skill-name" id="skillName">【诗性共鸣 · 辩论穿透】</div>
+          <div id="skillDesc">在文学对决中，以批判性修辞解构大宗师的悲剧论点。若立论自洽，提升全队反驳穿透率。</div>
+        </div>
+
+        <!-- Layer 5: Footer Dialectic Stats -->
+        <div class="card-footer">
+          <div class="stat-badge">
+            <span>SHIELD</span>
+            <span class="stat-val" id="statShield">+85</span>
+          </div>
+          <div class="stat-badge">
+            <span>REFUTATION</span>
+            <span class="stat-val" id="statRefute">+70</span>
+          </div>
+          <div class="stat-badge">
+            <span style="color: var(--brass-light)">SEAL: LVL 4</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="hint-bar">
+    <span>Move cursor to inspect 3D parallax & rainbow sheen • Click card to test acoustic ping</span>
+  </div>
+
+  <script>
+    // 1. 2.5D Parallax 3D Tilt Engine
+    const card = document.getElementById('masterCard');
+    const glare = document.getElementById('holoGlare');
+
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = ((y - centerY) / centerY) * -14;
+      const rotateY = ((x - centerX) / centerX) * 14;
+      
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+      
+      // Dynamic glare tracking
+      const glareX = (x / rect.width) * 100;
+      const glareY = (y / rect.height) * 100;
+      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.4) 0%, rgba(56,189,248,0.2) 25%, transparent 70%)`;
+      glare.style.opacity = '0.75';
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      glare.style.opacity = '0.35';
+    });
+
+    // 2. Pure Web Audio Synthesizer (Acoustic Wax-Seal Ping on Click)
+    function playHapticSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High resonant harmonic
+        osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.08);
+        osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.3);
+        
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.35);
+      } catch (e) {
+        console.log('AudioContext ready');
+      }
+    }
+
+    // 3. Modular Replicability Proof: Instant Discipline Morphing
+    const themes = {
+      aqua: {
+        primary: '#0284c7',
+        border: '#38bdf8',
+        glow: 'rgba(56, 189, 248, 0.4)',
+        tagBg: 'rgba(2, 132, 199, 0.15)',
+        courseTag: 'ENG3U // AQUA',
+        rarity: 'ANCESTRAL FOLIO',
+        name: '命运重织之羽',
+        flavor: '"What\'s done cannot be undone... unless the quill rewrites the fate."',
+        skillName: '【诗性共鸣 · 辩论穿透】',
+        skillDesc: '在文学对决中，以批判性修辞解构大宗师的悲剧论点。若立论自洽，提升全队反驳穿透率。',
+        shield: '+85',
+        refute: '+70',
+        artBg: 'radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%)',
+        svg: '<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line>'
+      },
+      pyra: {
+        primary: '#ea580c',
+        border: '#fb923c',
+        glow: 'rgba(251, 146, 60, 0.45)',
+        tagBg: 'rgba(234, 88, 12, 0.18)',
+        courseTag: 'MHF4U // PYRA',
+        rarity: 'ANCESTRAL ASTROLABE',
+        name: '开普勒真理星盘',
+        flavor: '"Nature speaks in the immutable language of mathematics."',
+        skillName: '【公理法庭 · 绝对收敛】',
+        skillDesc: '强制展开严格公理领域，驱散一切虚浮修辞。双方仅能以极限公式与函数推导对决。',
+        shield: '+95',
+        refute: '+60',
+        artBg: 'radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%)',
+        svg: '<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="3" x2="12" y2="21"></line><line x1="3" y1="12" x2="21" y2="12"></line>'
+      },
+      machina: {
+        primary: '#0d9488',
+        border: '#2dd4bf',
+        glow: 'rgba(45, 212, 191, 0.45)',
+        tagBg: 'rgba(13, 148, 136, 0.18)',
+        courseTag: 'ICS3U // MACHINA',
+        rarity: 'ANCESTRAL CORE-KEY',
+        name: '图灵逻辑秘钥',
+        flavor: '"Machines take me by surprise with great frequency."',
+        skillName: '【沙盒解构 · 语法重构】',
+        skillDesc: '对大宗师的论据进行算法复杂度分析，精准捕获逻辑断层，发动破防暴击。',
+        shield: '+75',
+        refute: '+90',
+        artBg: 'radial-gradient(circle at 50% 50%, rgba(13, 148, 136, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%)',
+        svg: '<rect x="4" y="4" width="16" height="16" rx="2"></rect><line x1="9" y1="9" x2="9" y2="9.01"></line><line x1="15" y1="9" x2="15" y2="9.01"></line><path d="M8 15h8"></path>'
+      }
+    };
+
+    function switchTheme(elemKey) {
+      const t = themes[elemKey];
+      const r = document.documentElement;
+      
+      r.style.setProperty('--elem-primary', t.primary);
+      r.style.setProperty('--elem-border', t.border);
+      r.style.setProperty('--elem-glow', t.glow);
+      r.style.setProperty('--elem-tag-bg', t.tagBg);
+      
+      document.getElementById('cardCourseTag').innerText = t.courseTag;
+      document.getElementById('cardRarity').innerText = t.rarity;
+      document.getElementById('cardName').innerText = t.name;
+      document.getElementById('cardFlavor').innerText = t.flavor;
+      document.getElementById('skillName').innerText = t.skillName;
+      document.getElementById('skillDesc').innerText = t.skillDesc;
+      document.getElementById('statShield').innerText = t.shield;
+      document.getElementById('statRefute').innerText = t.refute;
+      document.getElementById('artWindow').style.background = t.artBg;
+      document.getElementById('emblemSvg').innerHTML = t.svg;
+      
+      document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      playHapticSound();
+    }
+  </script>
 </body>
 </html>
