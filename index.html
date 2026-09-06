@@ -3,394 +3,350 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aegis Arc Academy (AAA) // Golden Master Card Prototype</title>
+  <title>Aegis Arc Academy (AAA) // 3A Visual Benchmark Staging</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #0b0f19;
-      --panel-bg: rgba(15, 23, 42, 0.7);
+      --bg: #0b0f19;
       --brass: #c5a059;
-      --brass-light: #e6c887;
-      --brass-glow: rgba(197, 160, 89, 0.35);
-      
-      /* Active Element Theme Defaults (💧 Aqua) */
-      --elem-primary: #0284c7;
-      --elem-glow: rgba(56, 189, 248, 0.4);
-      --elem-tag-bg: rgba(2, 132, 199, 0.15);
-      --elem-border: #38bdf8;
-      
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --card-w: 340px;
-      --card-h: 476px; /* Strict 3:4 Proportions */
+      --brass-bright: #e6c887;
+      --gold-glow: rgba(251, 191, 36, 0.45);
+      --cyan-holo: #38bdf8;
+      --cyan-glow: rgba(56, 189, 248, 0.4);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background-color: var(--bg-base);
+      background: var(--bg);
       background-image: 
-        radial-gradient(circle at 50% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 55%),
-        radial-gradient(circle at 85% 85%, rgba(197, 160, 89, 0.08) 0%, transparent 50%);
-      color: var(--text-main);
+        radial-gradient(circle at 50% 10%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 90% 90%, rgba(197, 160, 89, 0.08) 0%, transparent 50%);
+      color: #f8fafc;
       font-family: 'Plus Jakarta Sans', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 2.5rem 1rem;
+      padding: 3rem 1.5rem;
       perspective: 1200px;
     }
 
-    /* Top Navigation & Discipline Switcher */
-    .controls-panel {
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-    .badge {
-      display: inline-flex;
+    /* Top Bar with Chronos Arc Gauge */
+    .top-deck {
+      max-width: 1080px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 0.5rem;
-      background: rgba(197, 160, 89, 0.12);
-      border: 1px solid var(--brass);
-      color: var(--brass-light);
-      padding: 0.4rem 1.25rem;
-      border-radius: 9999px;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 1.5rem;
+    }
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.85rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      color: #fff;
+      text-shadow: 0 0 25px rgba(197, 160, 89, 0.35);
+    }
+    .brand-subtitle {
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-    }
-    .discipline-switch {
-      display: flex;
-      gap: 0.5rem;
-      background: rgba(15, 23, 42, 0.8);
-      padding: 0.35rem;
-      border-radius: 9999px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    .switch-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      padding: 0.4rem 1rem;
-      border-radius: 9999px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-    }
-    .switch-btn.active {
-      background: var(--elem-tag-bg);
-      color: var(--elem-border);
-      border: 1px solid var(--elem-border);
-      box-shadow: 0 0 12px var(--elem-glow);
+      color: var(--brass);
+      letter-spacing: 0.15em;
     }
 
-    /* 5-LAYER ATOMIC CARD CONTAINER */
-    .card-wrap {
-      width: var(--card-w);
-      height: var(--card-h);
+    /* Chronos 110-Hour Arc Widget (Pure SVG) */
+    .chronos-widget {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(197, 160, 89, 0.3);
+      padding: 0.5rem 1.25rem 0.5rem 0.75rem;
+      border-radius: 9999px;
+      backdrop-filter: blur(12px);
+    }
+    .chronos-circle {
+      width: 44px;
+      height: 44px;
+      position: relative;
+    }
+    .chronos-circle svg {
+      transform: rotate(-90deg);
+    }
+    .track-bg { stroke: rgba(255, 255, 255, 0.1); }
+    .track-active {
+      stroke: var(--cyan-holo);
+      stroke-dasharray: 110;
+      stroke-dashoffset: 25; /* Verified Hours */
+      filter: drop-shadow(0 0 6px var(--cyan-holo));
+      animation: pulseArc 3s ease-in-out infinite;
+    }
+    @keyframes pulseArc {
+      0%, 100% { opacity: 0.85; filter: drop-shadow(0 0 4px var(--cyan-holo)); }
+      50% { opacity: 1; filter: drop-shadow(0 0 10px var(--cyan-holo)); }
+    }
+    .chronos-info {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+    .chronos-info .val { color: var(--cyan-holo); font-weight: 700; }
+    .chronos-info .tag { color: var(--brass); font-size: 0.65rem; }
+
+    /* Showcase Stage */
+    .stage {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.5rem;
+      justify-content: center;
+      align-items: center;
+      max-width: 1080px;
+      width: 100%;
+    }
+
+    /* THE QUANTUM ALCHEMICAL TABLET (BENCHMARK SPEC) */
+    .quantum-card-wrap {
+      width: 330px;
+      height: 470px;
       position: relative;
       cursor: pointer;
       transform-style: preserve-3d;
-      transition: transform 0.15s cubic-bezier(0.2, 0, 0, 1);
+      transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1);
     }
-
-    /* Layer 1: The Obsidian Base & Brass Lock Frame */
-    .card-base {
+    .quantum-slab {
       position: absolute;
       inset: 0;
-      background: #0f172a;
-      border-radius: 18px;
-      border: 1.5px solid var(--brass);
+      border-radius: 22px;
+      background: rgba(15, 23, 42, 0.42);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1.5px solid rgba(255, 255, 255, 0.28);
       box-shadow: 
-        0 25px 50px -12px rgba(0, 0, 0, 0.8),
-        0 0 35px var(--elem-glow),
-        inset 0 0 20px rgba(0, 0, 0, 0.7);
-      padding: 14px;
+        inset 0 0 25px rgba(255, 255, 255, 0.08),
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        0 30px 60px -15px rgba(0, 0, 0, 0.85),
+        0 0 35px rgba(251, 191, 36, 0.2);
       display: flex;
       flex-direction: column;
+      padding: 16px;
       overflow: hidden;
     }
 
-    /* Mechanical Corner Accents */
-    .corner-bracket {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-color: var(--brass-light);
-      border-style: solid;
-      pointer-events: none;
-      z-index: 10;
-    }
-    .tl { top: 6px; left: 6px; border-width: 2px 0 0 2px; }
-    .tr { top: 6px; right: 6px; border-width: 2px 2px 0 0; }
-    .bl { bottom: 6px; left: 6px; border-width: 0 0 2px 2px; }
-    .br { bottom: 6px; right: 6px; border-width: 0 2px 2px 0; }
-
-    /* Layer 2: The Holo-Parchment Core (Glassmorphism) */
-    .holo-core {
-      position: relative;
-      flex: 1;
-      border-radius: 12px;
-      background: linear-gradient(160deg, rgba(30, 41, 59, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      display: flex;
-      flex-direction: column;
-      padding: 14px;
-      overflow: hidden;
-      backdrop-filter: blur(12px);
-    }
-
-    /* Layer 4 (Part A): Prismatic Rainbow Holographic Foil Glare Overlay */
-    .holo-glare {
+    /* Moving Specular Glare */
+    .specular-glare {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        115deg,
-        transparent 0%,
-        rgba(56, 189, 248, 0.15) 30%,
-        rgba(236, 72, 153, 0.18) 48%,
-        rgba(251, 191, 36, 0.18) 52%,
-        rgba(56, 189, 248, 0.15) 70%,
-        transparent 100%
-      );
-      mix-blend-mode: color-dodge;
-      opacity: 0.55;
       pointer-events: none;
-      transform: translateZ(30px);
+      border-radius: 22px;
+      mix-blend-mode: overlay;
+      opacity: 0.6;
       transition: opacity 0.3s ease;
+      transform: translateZ(60px);
     }
 
-    /* Layer 5: Engineering Metadata Header */
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding-bottom: 6px;
-      transform: translateZ(20px);
-    }
-    .course-tag {
-      color: var(--elem-border);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-    .type-badge {
-      color: var(--brass-light);
-      font-size: 0.7rem;
-      background: rgba(197, 160, 89, 0.12);
-      padding: 2px 6px;
-      border-radius: 4px;
-      border: 0.5px solid var(--brass);
-    }
-
-    /* Layer 3: Intaglio Etching Artwork Window */
-    .art-window {
-      height: 180px;
-      border-radius: 8px;
-      border: 1px solid rgba(197, 160, 89, 0.3);
-      position: relative;
-      background: radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%);
+    /* Layer 1: Clockwork Gears (Mid-Depth Z: 20px) */
+    .clockwork-layer {
+      position: absolute;
+      inset: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      transform: translateZ(25px);
-      margin-bottom: 12px;
-    }
-
-    /* Rotating Cybernetic Celestial Runes */
-    .celestial-orbit {
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      border: 1px dashed var(--elem-border);
-      border-radius: 50%;
-      opacity: 0.35;
-      animation: rotateOrbit 25s linear infinite;
-    }
-    @keyframes rotateOrbit {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* Central Hand-Drawn Emblem SVG */
-    .central-emblem {
-      position: relative;
-      z-index: 2;
-      filter: drop-shadow(0 0 12px var(--elem-border));
-      transition: transform 0.3s ease;
-    }
-    .card-wrap:hover .central-emblem {
-      transform: scale(1.08) rotate(-3deg);
-    }
-
-    /* Card Titles & Lore */
-    .card-title-block {
-      margin-bottom: 8px;
       transform: translateZ(20px);
+      pointer-events: none;
+      opacity: 0.88;
     }
-    .card-name {
+    .gear-svg {
+      width: 280px;
+      height: 380px;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+    }
+    .gear-spin-slow {
+      transform-origin: 140px 150px;
+      animation: spinGear 40s linear infinite;
+    }
+    .gear-spin-rev {
+      transform-origin: 190px 270px;
+      animation: spinGearRev 30s linear infinite;
+    }
+    @keyframes spinGear { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes spinGearRev { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+
+    /* Layer 2: Glowing Calculus Fiber-Optics (Surface Z: 50px) */
+    .calculus-layer {
+      position: absolute;
+      inset: 0;
+      transform: translateZ(48px);
+      pointer-events: none;
+      mix-blend-mode: color-dodge;
+    }
+    .formula-badge {
+      position: absolute;
       font-family: 'Cinzel', serif;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #fff;
-      margin-bottom: 2px;
-      letter-spacing: 0.03em;
+      color: #fbbf24;
+      text-shadow: 0 0 12px #fbbf24, 0 0 25px #ea580c;
     }
-    .card-flavor {
-      font-size: 0.72rem;
-      color: var(--brass-light);
-      font-style: italic;
-      line-height: 1.35;
+    .f1 { top: 28px; right: 28px; }
+    .f2 { bottom: 130px; left: 35px; }
+    .f3 { bottom: 45px; left: 30px; font-size: 0.85rem; }
+
+    .energy-stream {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      stroke: #fbbf24;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-dasharray: 8 6;
+      animation: dashFlow 12s linear infinite;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.8));
+    }
+    @keyframes dashFlow {
+      from { stroke-dashoffset: 200; }
+      to { stroke-dashoffset: 0; }
     }
 
-    /* Skill & Mechanism Description */
-    .skill-box {
-      flex: 1;
-      background: rgba(11, 15, 25, 0.5);
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 8px 10px;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      line-height: 1.4;
-      transform: translateZ(15px);
-      margin-bottom: 10px;
-    }
-    .skill-name {
-      color: var(--elem-border);
-      font-family: 'JetBrains Mono', monospace;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
-    /* Dialectic Defense & Refutation Stats */
-    .card-footer {
+    /* Layer 3: Engineering HUD Footer (Z: 30px) */
+    .tablet-hud-footer {
+      margin-top: auto;
+      transform: translateZ(35px);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 6px;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 10px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.7rem;
-      transform: translateZ(20px);
     }
-    .stat-badge {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: var(--text-main);
-    }
-    .stat-val {
-      color: var(--elem-border);
+    .hud-title {
+      color: var(--brass-bright);
       font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+    .hud-seal {
+      color: var(--cyan-holo);
+      background: rgba(56, 189, 248, 0.15);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 0.5px solid var(--cyan-holo);
     }
 
-    /* Hint text */
-    .hint-bar {
-      margin-top: 2rem;
+    /* Explanation Banner */
+    .benchmark-guide {
+      margin-top: 3rem;
+      max-width: 760px;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px dashed rgba(197, 160, 89, 0.3);
+      padding: 1.25rem 1.75rem;
+      border-radius: 12px;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.8rem;
-      color: var(--text-muted);
-      letter-spacing: 0.05em;
+      color: #94a3b8;
+      line-height: 1.6;
     }
+    .benchmark-guide strong { color: var(--brass-bright); }
   </style>
 </head>
 <body>
 
-  <!-- Controls Panel -->
-  <div class="controls-panel">
-    <div class="badge">
-      Aegis Arc Academy (AAA) // Golden Master Spec v1.0
+  <!-- Top Dashboard Bar -->
+  <div class="top-deck">
+    <div>
+      <div class="brand-title">Aegis Arc Academy</div>
+      <div class="brand-subtitle">OSSD TCG QUEST • 3A VISUAL BENCHMARK</div>
     </div>
-    <div class="discipline-switch">
-      <button class="switch-btn active" onclick="switchTheme('aqua')">💧 Aqua (ENG3U)</button>
-      <button class="switch-btn" onclick="switchTheme('pyra')">🔥 Pyra (MHF4U)</button>
-      <button class="switch-btn" onclick="switchTheme('machina')">⚙️ Machina (ICS3U)</button>
-    </div>
-  </div>
-
-  <!-- 5-LAYER ATOMIC CARD COMPONENT -->
-  <div class="card-wrap" id="masterCard" onclick="playHapticSound()">
-    <div class="card-base">
-      
-      <!-- Layer 1 Corners -->
-      <div class="corner-bracket tl"></div>
-      <div class="corner-bracket tr"></div>
-      <div class="corner-bracket bl"></div>
-      <div class="corner-bracket br"></div>
-
-      <!-- Layer 2: Holo-Parchment Core -->
-      <div class="holo-core">
-        
-        <!-- Layer 4: Rainbow Glare Overlay -->
-        <div class="holo-glare" id="holoGlare"></div>
-
-        <!-- Layer 5: Metadata Header -->
-        <div class="card-header">
-          <span class="course-tag" id="cardCourseTag">ENG3U // AQUA</span>
-          <span class="type-badge" id="cardRarity">ANCESTRAL FOLIO</span>
-        </div>
-
-        <!-- Layer 3: Artwork Window -->
-        <div class="art-window" id="artWindow">
-          <div class="celestial-orbit"></div>
-          <!-- Hand-Drawn Classical Quill SVG -->
-          <svg class="central-emblem" id="emblemSvg" width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--brass-light)">
-            <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
-            <line x1="16" y1="8" x2="2" y2="22"></line>
-            <line x1="17.5" y1="15" x2="9" y2="15"></line>
-          </svg>
-        </div>
-
-        <!-- Card Title & Lore -->
-        <div class="card-title-block">
-          <div class="card-name" id="cardName">命运重织之羽</div>
-          <div class="card-flavor" id="cardFlavor">"What's done cannot be undone... unless the quill rewrites the fate."</div>
-        </div>
-
-        <!-- Skill Mechanics (Ludonarrative) -->
-        <div class="skill-box">
-          <div class="skill-name" id="skillName">【诗性共鸣 · 辩论穿透】</div>
-          <div id="skillDesc">在文学对决中，以批判性修辞解构大宗师的悲剧论点。若立论自洽，提升全队反驳穿透率。</div>
-        </div>
-
-        <!-- Layer 5: Footer Dialectic Stats -->
-        <div class="card-footer">
-          <div class="stat-badge">
-            <span>SHIELD</span>
-            <span class="stat-val" id="statShield">+85</span>
-          </div>
-          <div class="stat-badge">
-            <span>REFUTATION</span>
-            <span class="stat-val" id="statRefute">+70</span>
-          </div>
-          <div class="stat-badge">
-            <span style="color: var(--brass-light)">SEAL: LVL 4</span>
-          </div>
-        </div>
-
+    
+    <!-- Top Right 110-Hour Chronos Gauge -->
+    <div class="chronos-widget">
+      <div class="chronos-circle">
+        <svg width="44" height="44" viewBox="0 0 44 44">
+          <circle class="track-bg" cx="22" cy="22" r="17.5" fill="none" stroke-width="3"></circle>
+          <circle class="track-active" cx="22" cy="22" r="17.5" fill="none" stroke-width="3"></circle>
+        </svg>
+      </div>
+      <div class="chronos-info">
+        <div class="val">85 / 110 HRS</div>
+        <div class="tag">CHRONOS ENGAGEMENT</div>
       </div>
     </div>
   </div>
 
-  <div class="hint-bar">
-    <span>Move cursor to inspect 3D parallax & rainbow sheen • Click card to test acoustic ping</span>
+  <!-- Main Showcase Stage -->
+  <div class="stage">
+    
+    <!-- THE QUANTUM ALCHEMICAL TABLET (BENCHMARK REPRODUCTION) -->
+    <div class="quantum-card-wrap" id="quantumCard">
+      <div class="quantum-slab">
+        
+        <!-- Dynamic Specular Glare -->
+        <div class="specular-glare" id="cardGlare"></div>
+
+        <!-- Layer 1: Embedded Renaissance Gears (Z: 20px) -->
+        <div class="clockwork-layer">
+          <svg class="gear-svg" viewBox="0 0 280 380">
+            <!-- Top Interlocking Gear -->
+            <g class="gear-spin-slow">
+              <circle cx="140" cy="150" r="65" fill="none" stroke="#c5a059" stroke-width="12" stroke-dasharray="8 6" opacity="0.9"></circle>
+              <circle cx="140" cy="150" r="45" fill="none" stroke="#e6c887" stroke-width="2" opacity="0.6"></circle>
+              <circle cx="140" cy="150" r="14" fill="#0f172a" stroke="#c5a059" stroke-width="4"></circle>
+              <line x1="140" y1="85" x2="140" y2="215" stroke="#c5a059" stroke-width="2" opacity="0.5"></line>
+              <line x1="75" y1="150" x2="205" y2="150" stroke="#c5a059" stroke-width="2" opacity="0.5"></line>
+            </g>
+
+            <!-- Bottom Counter-Rotating Gear -->
+            <g class="gear-spin-rev">
+              <circle cx="190" cy="270" r="50" fill="none" stroke="#c5a059" stroke-width="10" stroke-dasharray="6 6" opacity="0.85"></circle>
+              <circle cx="190" cy="270" r="32" fill="none" stroke="#e6c887" stroke-width="1.5" opacity="0.6"></circle>
+              <circle cx="190" cy="270" r="10" fill="#0f172a" stroke="#c5a059" stroke-width="3"></circle>
+            </g>
+
+            <!-- Secondary Small Meshing Gear -->
+            <circle cx="75" cy="260" r="30" fill="none" stroke="#c5a059" stroke-width="8" stroke-dasharray="5 5" opacity="0.75"></circle>
+          </svg>
+        </div>
+
+        <!-- Layer 2: Glowing Fiber-Optic Calculus Formulas (Z: 48px) -->
+        <div class="calculus-layer">
+          <svg class="energy-stream" viewBox="0 0 330 470">
+            <path d="M 40 400 Q 90 280 180 260 T 290 80"></path>
+            <path d="M 270 410 C 230 330 120 280 60 170 Q 30 110 90 40"></path>
+          </svg>
+          <div class="formula-badge f1">lim f(x)<br><span style="font-size:0.65rem;font-family:JetBrains Mono">x→∞</span></div>
+          <div class="formula-badge f2">lim f(x)<br><span style="font-size:0.65rem;font-family:JetBrains Mono">x→0</span></div>
+          <div class="formula-badge f3">lim f(x)<br><span style="font-size:0.65rem;font-family:JetBrains Mono">x→a</span></div>
+        </div>
+
+        <!-- Layer 3: HUD Footer (Z: 35px) -->
+        <div class="tablet-hud-footer">
+          <div>
+            <div class="hud-title">KEPLERIAN ASTROLABE</div>
+            <div style="color: #64748b; font-size: 0.65rem;">MHF4U // ANCESTRAL RELIC</div>
+          </div>
+          <div class="hud-seal">LEVEL 4</div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Engineering Note -->
+  <div class="benchmark-guide">
+    <strong>3A VISUAL PIPELINE VERIFIED:</strong><br>
+    • <strong>Glassmorphism:</strong> 18px backdrop-blur + 1.5px bevel edge + inner light diffusion.<br>
+    • <strong>Kinetic Physics:</strong> Real-time 2.5D coordinate parallax tracking cursor rotation.<br>
+    • <strong>Optical Shaders:</strong> Dynamic radial glare tracking cursor reflection + color-dodge calculus curves.<br>
+    • <strong>Compliance:</strong> Zero external 3D libraries (Pure CSS/SVG/JS, 100% lightweight & mobile responsive).
   </div>
 
   <script>
-    // 1. 2.5D Parallax 3D Tilt Engine
-    const card = document.getElementById('masterCard');
-    const glare = document.getElementById('holoGlare');
+    const card = document.getElementById('quantumCard');
+    const glare = document.getElementById('cardGlare');
 
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -400,124 +356,22 @@
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       
-      const rotateX = ((y - centerY) / centerY) * -14;
-      const rotateY = ((x - centerX) / centerX) * 14;
+      const rotateX = ((y - centerY) / centerY) * -16;
+      const rotateY = ((x - centerX) / centerX) * 16;
       
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.04, 1.04, 1.04)`;
       
-      // Dynamic glare tracking
+      // Dynamic specular glare reflection
       const glareX = (x / rect.width) * 100;
       const glareY = (y / rect.height) * 100;
-      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.4) 0%, rgba(56,189,248,0.2) 25%, transparent 70%)`;
-      glare.style.opacity = '0.75';
+      glare.style.background = `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.45) 0%, rgba(251,191,36,0.15) 30%, transparent 65%)`;
+      glare.style.opacity = '0.9';
     });
 
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      glare.style.opacity = '0.35';
+      glare.style.opacity = '0.4';
     });
-
-    // 2. Pure Web Audio Synthesizer (Acoustic Wax-Seal Ping on Click)
-    function playHapticSound() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High resonant harmonic
-        osc.frequency.exponentialRampToValueAtTime(1760, audioCtx.currentTime + 0.08);
-        osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.3);
-        
-        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.35);
-        
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.35);
-      } catch (e) {
-        console.log('AudioContext ready');
-      }
-    }
-
-    // 3. Modular Replicability Proof: Instant Discipline Morphing
-    const themes = {
-      aqua: {
-        primary: '#0284c7',
-        border: '#38bdf8',
-        glow: 'rgba(56, 189, 248, 0.4)',
-        tagBg: 'rgba(2, 132, 199, 0.15)',
-        courseTag: 'ENG3U // AQUA',
-        rarity: 'ANCESTRAL FOLIO',
-        name: '命运重织之羽',
-        flavor: '"What\'s done cannot be undone... unless the quill rewrites the fate."',
-        skillName: '【诗性共鸣 · 辩论穿透】',
-        skillDesc: '在文学对决中，以批判性修辞解构大宗师的悲剧论点。若立论自洽，提升全队反驳穿透率。',
-        shield: '+85',
-        refute: '+70',
-        artBg: 'radial-gradient(circle at 50% 50%, rgba(2, 132, 199, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%)',
-        svg: '<path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path><line x1="16" y1="8" x2="2" y2="22"></line><line x1="17.5" y1="15" x2="9" y2="15"></line>'
-      },
-      pyra: {
-        primary: '#ea580c',
-        border: '#fb923c',
-        glow: 'rgba(251, 146, 60, 0.45)',
-        tagBg: 'rgba(234, 88, 12, 0.18)',
-        courseTag: 'MHF4U // PYRA',
-        rarity: 'ANCESTRAL ASTROLABE',
-        name: '开普勒真理星盘',
-        flavor: '"Nature speaks in the immutable language of mathematics."',
-        skillName: '【公理法庭 · 绝对收敛】',
-        skillDesc: '强制展开严格公理领域，驱散一切虚浮修辞。双方仅能以极限公式与函数推导对决。',
-        shield: '+95',
-        refute: '+60',
-        artBg: 'radial-gradient(circle at 50% 50%, rgba(234, 88, 12, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%)',
-        svg: '<circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="3" x2="12" y2="21"></line><line x1="3" y1="12" x2="21" y2="12"></line>'
-      },
-      machina: {
-        primary: '#0d9488',
-        border: '#2dd4bf',
-        glow: 'rgba(45, 212, 191, 0.45)',
-        tagBg: 'rgba(13, 148, 136, 0.18)',
-        courseTag: 'ICS3U // MACHINA',
-        rarity: 'ANCESTRAL CORE-KEY',
-        name: '图灵逻辑秘钥',
-        flavor: '"Machines take me by surprise with great frequency."',
-        skillName: '【沙盒解构 · 语法重构】',
-        skillDesc: '对大宗师的论据进行算法复杂度分析，精准捕获逻辑断层，发动破防暴击。',
-        shield: '+75',
-        refute: '+90',
-        artBg: 'radial-gradient(circle at 50% 50%, rgba(13, 148, 136, 0.25) 0%, rgba(11, 15, 25, 0.8) 100%)',
-        svg: '<rect x="4" y="4" width="16" height="16" rx="2"></rect><line x1="9" y1="9" x2="9" y2="9.01"></line><line x1="15" y1="9" x2="15" y2="9.01"></line><path d="M8 15h8"></path>'
-      }
-    };
-
-    function switchTheme(elemKey) {
-      const t = themes[elemKey];
-      const r = document.documentElement;
-      
-      r.style.setProperty('--elem-primary', t.primary);
-      r.style.setProperty('--elem-border', t.border);
-      r.style.setProperty('--elem-glow', t.glow);
-      r.style.setProperty('--elem-tag-bg', t.tagBg);
-      
-      document.getElementById('cardCourseTag').innerText = t.courseTag;
-      document.getElementById('cardRarity').innerText = t.rarity;
-      document.getElementById('cardName').innerText = t.name;
-      document.getElementById('cardFlavor').innerText = t.flavor;
-      document.getElementById('skillName').innerText = t.skillName;
-      document.getElementById('skillDesc').innerText = t.skillDesc;
-      document.getElementById('statShield').innerText = t.shield;
-      document.getElementById('statRefute').innerText = t.refute;
-      document.getElementById('artWindow').style.background = t.artBg;
-      document.getElementById('emblemSvg').innerHTML = t.svg;
-      
-      document.querySelectorAll('.switch-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-      playHapticSound();
-    }
   </script>
 </body>
 </html>
